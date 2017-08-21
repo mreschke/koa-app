@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# Docker app building helper
+# mReschke 2017-04-05
+
+image="mreschke/koa-test-app"
+
+cmd=$1
+if [ "$cmd" == '' ]; then echo "Invalid usage"; exit 1; fi
+
+# Initial (dev only) setup, assuming docker-compose is not yet running
+# --------------------------------------------------------------------
+if [ "$cmd" == 'build' ]; then
+	docker build -t $image .
+
+elif [ "$cmd" == 'run' ]; then
+	docker run -it -v $(pwd):/app $image "${@:2}"
+
+elif [ "$cmd" == 'init' ]; then
+	# ONE time dev build.
+	docker run -it -v $(pwd):/app $image npm init && npm install koa --save
+
+elif [ "$cmd" == 'shell' ]; then
+	docker run -it -v $(pwd):/app -p 3000:3000 $image sh
+
+
+
+# Initial user install
+# --------------------------------------------------------------------
+elif [ "$cmd" == 'install' ]; then
+	docker run -it -v $(pwd):/app $image npm install
+
+
+
+
+# Commands after compose is running
+# --------------------------------------------------------------------
+elif [ "$cmd" == 'exec' ]; then
+	docker-compose exec web "${@:2}"
+
+
+
+
+
+# Invalid command
+else
+  echo "Invalid command '$cmd'"
+fi
