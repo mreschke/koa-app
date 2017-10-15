@@ -4,7 +4,7 @@ FROM node:alpine
 # Install global node dependencies
 RUN npm install -g nodemon
 
-# Copy our code (at .) into the container (at /code)
+# Copy our code (at .) into the container (at /app)
 COPY . /app
 WORKDIR /app
 

@@ -1,3 +1,22 @@
+# What is this?
+
+
+A custom koa folder structure for basic API boilerplace usage by mReschke 2017-04-06.
+
+This represents the latest in mreschke node.js koa folder design.  Use this as a starting place
+for all your koa JWT auth API's.
+
+
+
+# Getting Started
+
+`docker-compose up` goto localhost:3000
+
+See the `docker` bash file for other helper commands
+
+
+
+
 # Benchmarks
 
 Simple hello world home JSON return
